@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 2.8)
+project( ballboy )
+find_package( OpenCV REQUIRED )
+add_executable( ballboy ballboy.cpp)
+target_link_libraries( ballboy ${OpenCV_LIBS} )
