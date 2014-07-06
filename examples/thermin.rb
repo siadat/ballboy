@@ -14,7 +14,6 @@ require 'unimidi'
 @duration = 1
 
 def play note, vel, duration
-  puts "playing:%d" % note
   @output.puts(0x90, note, vel)
   sleep duration
   @output.puts(0x80, note, vel)
@@ -28,7 +27,7 @@ Thread.new {
       if @last_note != @next_note && @next_note != -1
         @last_note = @next_note
         next_note = @next_note
-        puts "playing note:%d vel:%d duration:%d" % [note, @next_vel, @duration]
+        # puts "playing note:%d vel:%d duration:%d" % [note, @next_vel, @duration]
         play(next_note, @next_vel, @duration)
       else
         duration = 0.8

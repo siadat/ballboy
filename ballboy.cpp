@@ -27,10 +27,9 @@ int hough_p1,
 
 void on_trackbar(int, void*) {
   if(debugging) {
-    printf("debug: hsv_min(%d %d %d) hsv_max(%d %d %d) p1(%d) p2(%d)\n",
+    printf("debug: new HSV values: %d %d %d %d %d %d\n",
            hsv_h_min, hsv_s_min, hsv_v_min,
-           hsv_h_max, hsv_s_max, hsv_v_max,
-           hough_p1, hough_p2);
+           hsv_h_max, hsv_s_max, hsv_v_max);
   }
 }
 

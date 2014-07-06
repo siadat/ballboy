@@ -28,9 +28,18 @@ Clone and compile ballboy:
     ./ballboy
 
     # Run it for HSV between (78, 41, 88) and (91, 256, 204):
-    ./ballboy 78 41 88 91 256 204
+    ./ballboy 78 41 75 91 256 204
 
     # Run it with thermin midi controller:
-    ./ballboy 78 41 88 91 256 204 | ruby ./examples/thermin.rb
+    ./ballboy 78 41 75 91 256 204 | ruby ./examples/thermin.rb
+
+The output will be like this:
+
+    x:563   y:507   r:118
+    x:593   y:439   r:125
+    x:619   y:453   r:130
+    x:651   y:449   r:114
+    x:647   y:459   r:114
+
 
 [1]: http://docs.opencv.org/doc/tutorials/introduction/table_of_content_introduction/table_of_content_introduction.html
