@@ -2,6 +2,11 @@
 
 Detects a ball within a given HSV range and outputs its coordinates to stdout.
 
+### Requirements
+
+- a webcam
+- OpenCV
+
 ### To build
 
 Install [OpenCV][1]:
@@ -27,11 +32,11 @@ Clone and compile ballboy:
     # See usage:
     ./ballboy
 
-    # Run it for HSV between (78, 41, 88) and (91, 256, 204):
+    # Run it for HSV between (78, 41, 75) and (91, 256, 204):
     ./ballboy 78 41 75 91 256 204
 
-    # Run it with thermin midi controller:
-    ./ballboy 78 41 75 91 256 204 | ruby ./examples/thermin.rb
+    # Run it with theremin midi controller:
+    ./ballboy 78 41 75 91 256 204 | ruby ./examples/theremin.rb
 
 The output will be like this:
 
