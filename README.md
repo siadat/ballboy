@@ -37,15 +37,19 @@ Clone and compile ballboy:
     ./ballboy 78 41 75 91 256 204
 
     # Run it with theremin midi controller:
-    ./ballboy 78 41 75 91 256 204 | ruby ./examples/theremin.rb
+    ./ballboy 66 47 24 90 256 204 | ruby ./examples/theremin.rb
 
-The output will be like this:
+    # Run in verbose mode (extra lines are prefixed with '#')
+    ./ballboy -v 66 47 24 90 256 204
 
-    x:563   y:507   r:118
-    x:593   y:439   r:125
-    x:619   y:453   r:130
-    x:651   y:449   r:114
-    x:647   y:459   r:114
+The output looks like this:
 
+    x:36    y:55    r:31
+    x:38    y:62    r:30
+    x:40    y:65    r:32
+    x:40    y:60    r:31
+    x:35    y:50    r:29
+
+All values are normalized between 0 and 100.
 
 [1]: http://docs.opencv.org/doc/tutorials/introduction/table_of_content_introduction/table_of_content_introduction.html

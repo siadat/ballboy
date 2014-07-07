@@ -63,7 +63,7 @@ int main(int argc, char ** argv) {
     cout << "  maxS: [0...256] max saturation" << endl;
     cout << "  maxV: [0...256] max value" << endl;
     cout << "Example:" << endl;
-    cout << "  ballboy 78 41 88 91 256 204" << endl;
+    cout << "  ballboy 66 47 24 90 256 204" << endl;
     return 1;
   }
 
@@ -159,7 +159,6 @@ int main(int argc, char ** argv) {
     GaussianBlur(src_gray, src_gray, Size(17, 17), 15);
 
     if(true || !debugging) {
-      printf("%d\n", src_gray.rows);
       HoughCircles(src_gray, circles, CV_HOUGH_GRADIENT, 2, IMG_HIGHT, hough_p1, hough_p2, 2, MAX_R);
     }
     // Draws the circles detected
