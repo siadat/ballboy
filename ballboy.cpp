@@ -4,6 +4,9 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <ctime>
 #include <highgui.h>
+#define IMG_WIDTH 320
+#define IMG_HIGHT 240
+#define MAX_R 160
 
 using namespace cv;
 using namespace std;
@@ -27,9 +30,10 @@ int hough_p1,
 
 void on_trackbar(int, void*) {
   if(debugging) {
-    printf("debug: new HSV values: %d %d %d %d %d %d\n",
+    printf("# debug: new HSV values: %d %d %d %d %d %d | new p1 p2: %d %d\n",
            hsv_h_min, hsv_s_min, hsv_v_min,
-           hsv_h_max, hsv_s_max, hsv_v_max);
+           hsv_h_max, hsv_s_max, hsv_v_max,
+           hough_p1, hough_p2);
   }
 }
 
@@ -63,8 +67,8 @@ int main(int argc, char ** argv) {
     return 1;
   }
 
-  hough_p1 = 96;
-  hough_p2 = 90;
+  hough_p1 = 73;
+  hough_p2 = 73;
 
   if(xargc >= 6) {
     hsv_h_min = atoi(argv[xi + 0]);
@@ -83,9 +87,9 @@ int main(int argc, char ** argv) {
 
 
   if(debugging) {
-    cout << "debug: ==============" << endl;
-    cout << "debug: = debug mode =" << endl;
-    cout << "debug: ==============" << endl;
+    cout << "# debug: ==============" << endl;
+    cout << "# debug: = debug mode =" << endl;
+    cout << "# debug: ==============" << endl;
   }
 
 
@@ -111,14 +115,14 @@ int main(int argc, char ** argv) {
   if(debugging) {
     //Gets width and height:
     namedWindow("Video");
-    cout << "debug: width: " << cap.get(CV_CAP_PROP_FRAME_WIDTH) << endl;
-    cout << "debug: height: " << cap.get(CV_CAP_PROP_FRAME_HEIGHT) << endl;
+    cout << "# debug: width: " << cap.get(CV_CAP_PROP_FRAME_WIDTH) << endl;
+    cout << "# debug: height: " << cap.get(CV_CAP_PROP_FRAME_HEIGHT) << endl;
     //Gets FPS:
     // double fps = cap.get(CV_CAP_PROP_FPS);
     //Sets width and height:
-    // cap.set(CV_CAP_PROP_FRAME_WIDTH, 600);
-    // cap.set(CV_CAP_PROP_FRAME_HEIGHT, 600);
   }
+  cap.set(CV_CAP_PROP_FRAME_WIDTH, IMG_WIDTH);
+  cap.set(CV_CAP_PROP_FRAME_HEIGHT, IMG_HIGHT);
 
   if(debugging) {
     createTrackbar("p1", "Video", &hough_p1, 500, on_trackbar);
@@ -141,7 +145,7 @@ int main(int argc, char ** argv) {
 
     if(frame.empty()) {
       if(debugging) {
-        cout << "debug: Video over" << endl;
+        cout << "# debug: Video over" << endl;
       }
       break;
     }
@@ -149,22 +153,23 @@ int main(int argc, char ** argv) {
     cvtColor(frame, src_gray, CV_BGR2HSV);
     inRange(src_gray, Scalar(hsv_h_min, hsv_s_min, hsv_v_min, 0),
                       Scalar(hsv_h_max, hsv_s_max, hsv_v_max, 0), src_gray);
-    dilate(src_gray, src_gray, dilate_el);
-    erode(src_gray, src_gray, erode_el);
+    // dilate(src_gray, src_gray, dilate_el);
+    // erode(src_gray, src_gray, erode_el);
 
-    GaussianBlur(src_gray, src_gray, Size(21, 21), 15);
+    GaussianBlur(src_gray, src_gray, Size(17, 17), 15);
 
     if(true || !debugging) {
-      HoughCircles(src_gray, circles, CV_HOUGH_GRADIENT, 2, src_gray.rows/8, hough_p1, hough_p2, 10, 200);
+      printf("%d\n", src_gray.rows);
+      HoughCircles(src_gray, circles, CV_HOUGH_GRADIENT, 2, IMG_HIGHT, hough_p1, hough_p2, 2, MAX_R);
     }
     // Draws the circles detected
     double circles_x = 0,
            circles_y = 0,
            circles_r = 0;
     for(size_t i = 0; i < circles.size(); i++) {
-      circles_x += circles[i][0];
-      circles_y += circles[i][1];
-      circles_r += circles[i][2];
+      circles_x += 100.0 * circles[i][0] / IMG_WIDTH;
+      circles_y += 100.0 * circles[i][1] / IMG_HIGHT;
+      circles_r += 100.0 * circles[i][2] / (IMG_HIGHT / 2.0);
 
       if(debugging) {
         Point center(cvRound(circles[i][0]), cvRound(circles[i][1]));

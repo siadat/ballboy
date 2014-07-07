@@ -22,14 +22,15 @@ end
 
 
 ARGF.each do |line|
+  next if line.match /^#/
   Thread.new {
     @last_played = Time.now
     values = line.split(/\s+/)
     if values.length == 3
       x, y, r = values.map{|v| v.split(':').last.to_i}
-      i = (y/80.0).to_i
-      @next_vel = 30 + (x / 10).to_i
-      @next_note = 70 - ((i/@key.length) * 12 + @key[i % @key.length]) + 12
+      i = (x/2.0).to_i
+      @next_vel = 30 + (y / 10.0).to_i
+      @next_note = 80 - ((i/@key.length) * 12 + @key[i % @key.length]) + 12
       puts "playing note:%d vel:%d duration:%d" % [@next_note, @next_vel, @duration]
       play(@next_note, @next_vel, @duration)
     end

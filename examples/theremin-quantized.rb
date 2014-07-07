@@ -7,10 +7,10 @@ require 'unimidi'
 @base_note = 61
 
 @key = [0, 2, 4, 5, 7, 9, 11]
-@tempo = 200
+@tempo = 400
 @beat = 0
 @vel = 3
-@bar_a, @bar_b = 3, 12
+@bar_a, @bar_b = 6, 24
 @duration = 1
 
 def play note, vel, duration
@@ -36,7 +36,7 @@ Thread.new {
         if @beat % @bar_a == 0
           if @beat % @bar_b == 0
             note = @base_note - 12
-            vel = 30
+            vel = 25
             duration = 1.5
           else
             vel = 30.0/(@bar_b / @bar_a) * (@beat % @bar_b) / @bar_a
@@ -53,13 +53,14 @@ Thread.new {
 }
 
 ARGF.each do |line|
+  next if line.match /^#/
   Thread.new {
     @last_played = Time.now
     values = line.split(/\s+/)
     if values.length == 3
       x, y, r = values.map{|v| v.split(':').last.to_i}
-      i = (y/80.0).to_i
-      @next_vel = 30 + (x / 10).to_i
+      i = (x/2.0).to_i
+      @next_vel = 40 + (y / 10.0).to_i
       @next_note = 70 - ((i/@key.length) * 12 + @key[i % @key.length]) + 12
     end
   }
