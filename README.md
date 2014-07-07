@@ -5,6 +5,7 @@ Detects a ball within a given HSV range and outputs its coordinates to stdout.
 ### Requirements
 
 - a webcam
+- a coloured ball
 - OpenCV
 
 ### To build
@@ -32,7 +33,7 @@ Clone and compile ballboy:
     # See usage:
     ./ballboy
 
-    # Run it for HSV between (78, 41, 75) and (91, 256, 204):
+    # Run it for a green ball with HSV between (78,41,75) and (91, 256, 204):
     ./ballboy 78 41 75 91 256 204
 
     # Run it with theremin midi controller:
