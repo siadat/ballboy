@@ -2,6 +2,8 @@
 
 Detects a ball within a given HSV range and outputs its coordinates to stdout.
 
+![Screenshot](http://blog.sariina.com/wp-content/uploads/2014/07/sina_melodyball.png)
+
 ### Requirements
 
 - a webcam
@@ -50,6 +52,6 @@ The output looks like this:
     x:40    y:60    r:31
     x:35    y:50    r:29
 
-All values are normalized between 0 and 100.
+All values are normalized between 0 and 100. If nothing is found, the values will be -1.
 
 [1]: http://docs.opencv.org/doc/tutorials/introduction/table_of_content_introduction/table_of_content_introduction.html

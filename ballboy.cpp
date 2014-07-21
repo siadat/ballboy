@@ -182,6 +182,8 @@ int main(int argc, char ** argv) {
 
     if(circles.size() > 0) {
       cout << "x:" << cvRound(circles_x/circles.size()) << "\ty:" << cvRound(circles_y/circles.size()) << "\tr:" << cvRound(circles_r/circles.size()) << endl;
+    } else {
+      cout << "x:" << -1 << "\ty:" << -1 << "\tr:" << -1 << endl;
     }
 
     now = time(0);
